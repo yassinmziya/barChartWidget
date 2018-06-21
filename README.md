@@ -1,4 +1,6 @@
-To incoorparate widget in pre existing app:
+#Bar Chart Widget
+
+To incoorparate widget in pre existing app, non-react application:
 i. paste the folowing into target:
 <!--
     <script src="https://unpkg.com/getlibs"></script>    
