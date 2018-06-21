@@ -1,4 +1,4 @@
-#Bar Chart Widget
+# Bar Chart Widget
 
 To incoorparate widget in pre existing app, non-react application:
 i. paste the folowing into target:
