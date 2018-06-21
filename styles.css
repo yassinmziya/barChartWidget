@@ -1,0 +1,40 @@
+#chart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 750px;
+    width: 900px;
+    margin: -375px 0px 0px -450px;
+    border: solid black 1px;
+}
+
+.Axis path,
+.Axis line {
+  stroke: #E0E0E0;
+}
+
+#legend,
+svg text,
+.Axis text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  fill: black;
+}
+
+svg text {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.Axis-Bottom text {
+  transform: rotate(-45deg);
+  text-anchor: end;
+}
+
+#legend {
+  border: 1px solid black;
+  display: inline-block;
+  height: auto;
+  padding: 2px;
+  vertical-align: top;
+}
