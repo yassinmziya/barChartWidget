@@ -1,5 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
+// import PropTypes from 'prop-types';
+
 import * as d3 from 'd3';
 import Axes from './Axes';
 import Bars from './Bars';
@@ -14,8 +16,7 @@ export default class BarChart extends React.Component {
     render() {
         const svgDimensions = { h: this.props.h || 500, w: this.props.w || 800 }
         const margins = { top: 50, right: 20, bottom: 100, left: 60 }
-        const data = this.props.data || 
-        [
+        const demoData = [
             {
                 label: 'somethingA',
                 values: [{x: 'SomethingA', y: 10}, {x: 'SomethingB', y: 4}, {x: 'SomethingC', y: 3}]
@@ -41,16 +42,18 @@ export default class BarChart extends React.Component {
                 values: [{x: 'SomethingA', y: 18}, {x: 'SomethingB', y: 8}, {x: 'SomethingC', y: 5}]
             }
         ];
-
-        var temp = data.map(datum => {
+        const data = this.props.data || demoData;
+        
+        // each datum can consist of multiple segments. Here we calculate the total bar height of each datum.
+        var barHeights = data.map(datum => {
             var total = 0;
             datum.values.forEach(value => {
                 total = total + value.y
             });
             return total;
-        })
+        });
 
-        var maxValue = Math.max.apply(Math, temp);
+        var maxValue = Math.max.apply(Math, barHeights); // for our scales, we take temp and find the tallest bar.
 
         const xScale = d3.scaleBand().domain(data.map((d) => d.label))
         .range([margins.left, svgDimensions.w - margins.right]).padding(0.5);
@@ -61,27 +64,47 @@ export default class BarChart extends React.Component {
 
         return (
             <div>
-            <svg width={svgDimensions.w} height={svgDimensions.h}>
-                <Axes
-                    scales={{ xScale, yScale }}
-                    margins={margins}
-                    svgDimensions={svgDimensions}
-                />
-                <Bars
-                    scales={{ xScale, yScale }}
-                    margins={margins}
-                    data={data}
-                    maxValue={maxValue}
-                    svgDimensions={svgDimensions}
-                    colors={this.props.legend && this.props.legend.map(x => x.color)}
-                />
-                <text x={svgDimensions.w/2} y={svgDimensions.h - margins.bottom/8}>{this.props.xLabel}</text>
-                <text transform={`translate(${margins.left/3}, ${svgDimensions.h/2})rotate(-90)`}>{this.props.yLabel}</text>
-            </svg>
+                <svg width={svgDimensions.w} height={svgDimensions.h}>
+                    <Axes
+                        scales={{ xScale, yScale }}
+                        margins={margins}
+                        svgDimensions={svgDimensions}
+                    />
+                    <Bars
+                        scales={{ xScale, yScale }}
+                        margins={margins}
+                        data={data}
+                        maxValue={maxValue}
+                        svgDimensions={svgDimensions}
+                        colors={this.props.legend && this.props.legend.map(x => x.color)}
+                    />
+                    <text x={svgDimensions.w/2} y={svgDimensions.h - margins.bottom/8}>{this.props.xLabel}</text>
+                    <text transform={`translate(${margins.left/3}, ${svgDimensions.h/2})rotate(-90)`}>{this.props.yLabel}</text>
+                </svg>
             
-            {this.props.legend && <Legend data={this.props.legend}/>}
+                {this.props.legend && <Legend data={this.props.legend}/>}
 
             </div>
         );
     }
 }
+
+
+// BarChart.prototype = {
+//     h: PropTypes.number,
+//     w: PropTypes.number,
+//     data: PropTypes.shape({
+//         label: PropTypes.string.isRequired,
+//         values: PropTypes.arrayOf(PropTypes.shape({
+//             x:PropTypes.string,
+//             y: PropTypes.number,
+//         })).isRequired
+//     }),
+//     xLabel: PropTypes.string,
+//     yLabel: PropTypes.string,
+//     legend: PropTypes.arrayOf(PropTypes.shape({
+//         color: PropTypes.string.isRequired,
+//         label: PropTypes.string.isRequired,
+//     })),
+    
+// };

@@ -1,19 +1,11 @@
-#chart {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 750px;
-    width: 900px;
-    margin: -375px 0px 0px -450px;
-    border: solid black 1px;
-}
-
+/*axis and chart grid styling*/
 .Axis path,
 .Axis line {
   stroke: #E0E0E0;
 }
 
-#legend,
+/*fontz and text styling*/
+#barChartLegend,
 svg text,
 .Axis text {
   font-family: Arial, Helvetica, sans-serif;
@@ -31,7 +23,8 @@ svg text {
   text-anchor: end;
 }
 
-#legend {
+/*chart legend*/
+#barChartLegend {
   border: 1px solid black;
   display: inline-block;
   height: auto;

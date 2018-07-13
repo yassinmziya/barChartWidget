@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 export default class Legend extends React.Component {
     render() {
         return (
-            <table id="legend">
+            <table id="barChartLegend">
                 {
                     this.props.data.map(datum => <tr>
                         <td
